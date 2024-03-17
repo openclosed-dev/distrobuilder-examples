@@ -15,6 +15,10 @@ packages:
   cleanup: true
   sets:
   - packages:
+    # Disables the welcome screen
+    - gnome-initial-setup 
+    action: remove
+  - packages:
     - xrdp
     action: install
 
@@ -80,7 +84,7 @@ files:
     # User rules for ubuntu
     ubuntu ALL=(ALL) NOPASSWD:ALL
 
-# Fix “Authentication Is Required To Create A Color Profile/Managed Device”
+# Fixes “Authentication Is Required To Create A Color Profile/Managed Device”
 - path: /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla
   generator: dump
   content: |-
