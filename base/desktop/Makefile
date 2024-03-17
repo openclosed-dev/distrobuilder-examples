@@ -11,5 +11,6 @@ clean:
 	sudo rm -f *.squashfs
 
 rootfs.squashfs: image.yaml $(base_image)
+	sudo rm -rf rootfs
 	sudo distrobuilder build-dir -o source.url=file://$(base_image) $< rootfs
 	sudo mksquashfs rootfs $@
