@@ -7,13 +7,15 @@ Distrobuilder template examples for generating LXD container images.
 1. Ubuntu 22.04 LTS (fresh instance is recommended)
 2. LXD
 3. [Distrobuilder](https://github.com/lxc/distrobuilder)
-4. mksquashfs
+4. debootstrap
+5. make
+6. mksquashfs
 
-Required packaged can be installed as follows.
+Required packaged can be installed using `apt install` and `snap install`.
 ```
 sudo snap install lxd
 sudo snap install distrobuilder --classic
-sudo apt install squashfs-tools
+sudo apt install debootstrap make squashfs-tools
 ```
 
 The LXD service must be configured properly first.
