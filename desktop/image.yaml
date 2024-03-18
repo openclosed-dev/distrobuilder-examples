@@ -85,6 +85,13 @@ files:
     ResultInactive=no
     ResultActive=yes
 
+# Stops offering to upgrade
+- path: /etc/update-manager/release-upgrades
+  generator: dump
+  content: |-
+    [DEFAULT]
+    Prompt=never
+
 actions:
 - trigger: post-update
   action: |-
