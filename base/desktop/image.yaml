@@ -26,15 +26,5 @@ packages:
     - ubuntu-desktop-minimal
     action: install
 
-  repositories:
-  - name: sources.list
-    url: |-
-      deb http://archive.ubuntu.com/ubuntu {{ image.release }} main restricted universe multiverse
-      deb http://archive.ubuntu.com/ubuntu {{ image.release }}-updates main restricted universe multiverse
-      deb http://security.ubuntu.com/ubuntu {{ image.release }}-security main restricted universe multiverse
-    architectures:
-    - amd64
-    - i386
-
 mappings:
   architecture_map: debian

@@ -22,16 +22,6 @@ packages:
     - xrdp
     action: install
 
-  repositories:
-  - name: sources.list
-    url: |-
-      deb http://archive.ubuntu.com/ubuntu {{ image.release }} main restricted universe multiverse
-      deb http://archive.ubuntu.com/ubuntu {{ image.release }}-updates main restricted universe multiverse
-      deb http://security.ubuntu.com/ubuntu {{ image.release }}-security main restricted universe multiverse
-    architectures:
-    - amd64
-    - i386
-
 files:
 - path: /etc/hostname
   generator: hostname
