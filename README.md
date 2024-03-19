@@ -47,7 +47,7 @@ lxc image import desktop/incus.tar.xz desktop/rootfs.squashfs --alias desktop
 lxc image list
 ```
 
-A container named 'text' can be launched using the imported image.
+A container named `test` can be launched using the imported image.
 ```
 lxc launch desktop test
 
