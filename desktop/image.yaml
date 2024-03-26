@@ -102,8 +102,20 @@ actions:
     getent group sudo >/dev/null 2>&1 || groupadd --system sudo
     useradd --create-home -s /bin/bash -G sudo -U ubuntu
 
+- trigger: post-update
+  action: |-
+    #!/bin/sh
+    set -eux
+
     # Create the first user account
     useradd --create-home -s /bin/bash -U -p '$6$EioZtEpQ//S3Fvyg$FROs9q9mkrzQAg43olkR.KXVfFeEtzpSl3W/wrE.0tL.hxKHc2TXfqq/YtsN1Z2hNKZ86T5gXaxX51eXJnQlS.' user1
+
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    sed -i '5 i export GNOME_SHELL_SESSION_MODE=ubuntu\nexport XDG_CURRENT_DESKTOP=ubuntu:GNOME\n' /etc/xrdp/startwm.sh
 
 - trigger: post-packages
   action: |-
