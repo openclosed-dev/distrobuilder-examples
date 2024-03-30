@@ -80,6 +80,13 @@ files:
     ResultInactive=no
     ResultActive=yes
 
+- path: /home/user1/.config/dconf/
+  generator: copy
+  source: ./dconf/user
+  mode: 664
+  uid: 1001
+  gid: 1001
+
 actions:
 - trigger: post-update
   action: |-

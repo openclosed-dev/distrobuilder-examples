@@ -9,5 +9,8 @@ all: incus.tar.xz
 clean:
 	sudo rm -f *.tar.xz *.squashfs
 
-incus.tar.xz: image.yaml $(base_image)
+dconf/user: dconf/user.d/*
+	dconf compile $@ dconf/user.d
+
+incus.tar.xz: image.yaml $(base_image) dconf/user
 	sudo distrobuilder build-lxd -o source.url=file://$(base_image) $<
