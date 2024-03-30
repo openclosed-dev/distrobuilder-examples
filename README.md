@@ -41,7 +41,7 @@ make
 
 The following command imports the image built in the `desktop` directory.
 ```
-lxc image import desktop/incus.tar.xz desktop/rootfs.squashfs --alias desktop
+lxc image import simple/incus.tar.xz simple/rootfs.squashfs --alias simple
 
 # lists images
 lxc image list
@@ -49,7 +49,7 @@ lxc image list
 
 A container named `test` can be launched using the imported image.
 ```
-lxc launch desktop test
+lxc launch simple test
 
 # lists containers
 lxc list

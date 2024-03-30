@@ -3,24 +3,19 @@ image:
   distribution: ubuntu
   release: focal
   description: |-
-    Ubuntu 20.04 Desktop with RDP support
+    Ubuntu 20.04 Desktop with Applications
   architecture: x86_64
 
 source:
   downloader: rootfs-http
 
+mappings:
+  architecture_map: debian
+
 packages:
   manager: apt
   update: true
   cleanup: true
-  sets:
-  - packages:
-    # Disables the welcome screen
-    - gnome-initial-setup 
-    action: remove
-  - packages:
-    - xrdp
-    action: install
 
 files:
 - path: /etc/hostname
@@ -85,13 +80,6 @@ files:
     ResultInactive=no
     ResultActive=yes
 
-# Stops offering to upgrade
-- path: /etc/update-manager/release-upgrades
-  generator: dump
-  content: |-
-    [DEFAULT]
-    Prompt=never
-
 actions:
 - trigger: post-update
   action: |-
@@ -109,13 +97,6 @@ actions:
 
     # Create the first user account
     useradd --create-home -s /bin/bash -U -p '$6$EioZtEpQ//S3Fvyg$FROs9q9mkrzQAg43olkR.KXVfFeEtzpSl3W/wrE.0tL.hxKHc2TXfqq/YtsN1Z2hNKZ86T5gXaxX51eXJnQlS.' user1
-
-- trigger: post-packages
-  action: |-
-    #!/bin/sh
-    set -eux
-
-    sed -i '5 i export GNOME_SHELL_SESSION_MODE=ubuntu\nexport XDG_CURRENT_DESKTOP=ubuntu:GNOME\n' /etc/xrdp/startwm.sh
 
 - trigger: post-packages
   action: |-
@@ -144,6 +125,3 @@ actions:
 
     # Cleanup temporary shadow paths
     rm /etc/*-
-
-mappings:
-  architecture_map: debian

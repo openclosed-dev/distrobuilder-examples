@@ -7,7 +7,8 @@ source:
 
 targets: {}
 
-files: []
+mappings:
+  architecture_map: debian
 
 packages:
   manager: apt
@@ -26,5 +27,29 @@ packages:
     - ubuntu-desktop-minimal
     action: install
 
-mappings:
-  architecture_map: debian
+  - packages:
+    # Disables the welcome screen
+    - gnome-initial-setup
+    action: remove
+
+  - packages:
+    # For connecting via RDP
+    - xrdp
+    action: install
+
+files:
+# Stops offering to upgrade
+- path: /etc/update-manager/release-upgrades
+  generator: dump
+  content: |-
+    [DEFAULT]
+    Prompt=never
+
+actions:
+# Modifies to show Ubuntu Dock
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    sed -i '5 i export GNOME_SHELL_SESSION_MODE=ubuntu\nexport XDG_CURRENT_DESKTOP=ubuntu:GNOME\n' /etc/xrdp/startwm.sh

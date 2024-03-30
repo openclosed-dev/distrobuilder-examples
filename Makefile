@@ -1,13 +1,14 @@
-base_images := base/core base/desktop-minimal
-images := $(base_images) desktop desktop-chrome
+base_images := base/core base/desktop-minimal base/desktop-apps
+images := $(base_images) simple
 
 .PHONY: all $(images)
 
 all: $(images)
 
-base/desktop: base/core
-desktop: base/desktop-minimal
-desktop-chrome: base/desktop-minimal
+base/desktop-minimal: base/core
+base/desktop-apps: base/desktop-minimal
+
+simple: base/desktop-apps
 
 $(images):
 	$(MAKE) --directory=$@
