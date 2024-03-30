@@ -103,10 +103,17 @@ actions:
     set -eux
 
     # Create the first user account
-    useradd --create-home -s /bin/bash -U -p '$6$EioZtEpQ//S3Fvyg$FROs9q9mkrzQAg43olkR.KXVfFeEtzpSl3W/wrE.0tL.hxKHc2TXfqq/YtsN1Z2hNKZ86T5gXaxX51eXJnQlS.' user1
+    useradd -p '$6$EioZtEpQ//S3Fvyg$FROs9q9mkrzQAg43olkR.KXVfFeEtzpSl3W/wrE.0tL.hxKHc2TXfqq/YtsN1Z2hNKZ86T5gXaxX51eXJnQlS.' \
+      --create-home -s /bin/bash -U user1
 
-    mkdir -p /home/user1/.config/dconf
-    chown -R user1:user1 /home/user1/.config 
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    mkdir -p /home/user1/.local/share/applications/
+    sed 's|^Exec=/usr/bin/google-chrome-stable|\0 --password-store=basic|g' \
+      /usr/share/applications/google-chrome.desktop > /home/user1/.local/share/applications/google-chrome.desktop
 
 - trigger: post-packages
   action: |-
@@ -135,3 +142,10 @@ actions:
 
     # Cleanup temporary shadow paths
     rm /etc/*-
+
+- trigger: post-files
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    chown -R user1:user1 /home/user1
