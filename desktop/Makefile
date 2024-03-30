@@ -8,6 +8,7 @@ all: incus.tar.xz
 
 clean:
 	sudo rm -f *.tar.xz *.squashfs
+	sudo rm -rf .cache
 
 incus.tar.xz: image.yaml $(base_image)
-	sudo distrobuilder build-lxd -o source.url=file://$(base_image) $<
+	sudo distrobuilder build-lxd --cache-dir=.cache --cleanup=false -o source.url=file://$(base_image) $<
