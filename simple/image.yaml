@@ -1,5 +1,5 @@
 image:
-  name: ubuntu-20.04-desktop
+  name: simple
   distribution: ubuntu
   release: focal
   description: |-
@@ -86,6 +86,19 @@ files:
   mode: 664
   uid: 1001
   gid: 1001
+
+- path: /home/user1/.config/mimeapps.list
+  generator: dump
+  mode: 664
+  uid: 1001
+  gid: 1001
+  content: |-
+    [Default Applications]
+    text/html=google-chrome.desktop
+    x-scheme-handler/http=google-chrome.desktop
+    x-scheme-handler/https=google-chrome.desktop
+    x-scheme-handler/about=google-chrome.desktop
+    x-scheme-handler/unknown=google-chrome.desktop
 
 actions:
 - trigger: post-update
