@@ -1,5 +1,7 @@
 .cache/
 rootfs/
 *.squashfs
+*.tar
+*.tar.gz
 *.tar.xz
 user
