@@ -98,6 +98,7 @@ actions:
     useradd --create-home -s /bin/bash -G sudo -U ubuntu
 
 - trigger: post-update
+  # Adds a user
   action: |-
     #!/bin/sh
     set -eux
@@ -114,6 +115,10 @@ actions:
     mkdir -p /home/user1/.local/share/applications/
     sed 's|^Exec=/usr/bin/google-chrome-stable|\0 --password-store=basic|g' \
       /usr/share/applications/google-chrome.desktop > /home/user1/.local/share/applications/google-chrome.desktop
+
+    # Skips the welcome page for Google Chrome.
+    mkdir -p /home/user1/.config/google-chrome
+    touch /home/user1/.config/google-chrome/'First Run'
 
 - trigger: post-packages
   action: |-
