@@ -100,6 +100,13 @@ files:
     x-scheme-handler/about=google-chrome.desktop
     x-scheme-handler/unknown=google-chrome.desktop
 
+- path: /home/user1/Desktop/
+  generator: copy
+  mode: 755
+  uid: 1001
+  gid: 1001
+  source: ./files/home/user1/Desktop/
+
 actions:
 - trigger: post-unpack
   action: |-
@@ -119,6 +126,9 @@ actions:
     # Create the first user account
     useradd -p '$6$EioZtEpQ//S3Fvyg$FROs9q9mkrzQAg43olkR.KXVfFeEtzpSl3W/wrE.0tL.hxKHc2TXfqq/YtsN1Z2hNKZ86T5gXaxX51eXJnQlS.' \
       --create-home -s /bin/bash -U user1
+
+    mkdir -p /home/user1/Desktop
+    chown user1:user1 /home/user1/Desktop
 
 - trigger: post-unpack
   action: |-
@@ -160,6 +170,18 @@ actions:
 
     # Cleanup temporary shadow paths
     rm /etc/*-
+
+- trigger: post-files
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    mkdir -p /home/user1/.local/share/gvfs-metadata
+    chown -R user1:user1 /home/user1/.local
+
+    for file in /home/user1/Desktop/*.desktop; do
+      sudo -u user1 dbus-launch gio set $file metadata::trusted true
+    done
 
 - trigger: post-files
   action: |-

@@ -40,9 +40,9 @@ make
 
 ## Importing the built image
 
-The following command imports the image built in the `desktop` directory.
+The following command imports the image built in the `simple` directory.
 ```
-lxc image import simple/incus.tar.xz simple/rootfs.squashfs --alias simple
+lxc image import simple/incus.tar.gz simple/rootfs.squashfs --alias simple
 
 # lists images
 lxc image list
