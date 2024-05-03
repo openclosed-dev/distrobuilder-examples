@@ -14,8 +14,8 @@ mappings:
 
 packages:
   manager: apt
-  update: true
-  cleanup: true
+  update: false
+  cleanup: false
 
 files:
 - path: /etc/hostname
@@ -101,7 +101,7 @@ files:
     x-scheme-handler/unknown=google-chrome.desktop
 
 actions:
-- trigger: post-update
+- trigger: post-unpack
   action: |-
     #!/bin/sh
     set -eux
@@ -110,7 +110,7 @@ actions:
     getent group sudo >/dev/null 2>&1 || groupadd --system sudo
     useradd --create-home -s /bin/bash -G sudo -U ubuntu
 
-- trigger: post-update
+- trigger: post-unpack
   # Adds a user
   action: |-
     #!/bin/sh
@@ -120,7 +120,7 @@ actions:
     useradd -p '$6$EioZtEpQ//S3Fvyg$FROs9q9mkrzQAg43olkR.KXVfFeEtzpSl3W/wrE.0tL.hxKHc2TXfqq/YtsN1Z2hNKZ86T5gXaxX51eXJnQlS.' \
       --create-home -s /bin/bash -U user1
 
-- trigger: post-packages
+- trigger: post-unpack
   action: |-
     #!/bin/sh
     set -eux
@@ -133,7 +133,7 @@ actions:
     mkdir -p /home/user1/.config/google-chrome
     touch /home/user1/.config/google-chrome/'First Run'
 
-- trigger: post-packages
+- trigger: post-unpack
   action: |-
     #!/bin/sh
     set -eux
@@ -144,7 +144,7 @@ actions:
     # Disable UA attach
     systemctl mask ua-auto-attach
 
-- trigger: post-packages
+- trigger: post-unpack
   action: |-
     #!/bin/sh
     set -eux
