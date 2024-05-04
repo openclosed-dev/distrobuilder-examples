@@ -18,7 +18,8 @@ packages:
   cleanup: true
   sets:
   - packages:
-    - language-pack-ja
     - ibus-mozc
     - language-pack-gnome-ja
+    - language-pack-ja
+    - mozc-utils-gui
     action: install
