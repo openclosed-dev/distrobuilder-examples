@@ -16,11 +16,13 @@ packages:
   cleanup: true
   sets:
   - packages:
+    - curl
     - fuse
     - language-pack-en
     - openssh-client
     - sudo
     - vim
+    - wget
     action: install
 
   - packages:
@@ -45,11 +47,22 @@ files:
     [DEFAULT]
     Prompt=never
 
+- path: /etc/xrdp/startubuntu.sh
+  generator: copy
+  mode: 755
+  source: ./files/etc/xrdp/startubuntu.sh
+
+# Fixes “Authentication Is Required To Create A Color Profile/Managed Device”
+- path: /etc/polkit-1/localauthority/50-local.d
+  generator: copy
+  source: ./files/etc/polkit-1/localauthority/50-local.d
+
 actions:
-# Modifies to show Ubuntu Dock
+# Fix xrdp
 - trigger: post-packages
   action: |-
     #!/bin/sh
     set -eux
 
-    sed -i '5 i export GNOME_SHELL_SESSION_MODE=ubuntu\nexport XDG_CURRENT_DESKTOP=ubuntu:GNOME\n' /etc/xrdp/startwm.sh
+    sed -i -e 's/startwm/startubuntu/g' /etc/xrdp/sesman.ini
+    sed -i -e 's/FuseMountName=thinclient_drives/FuseMountName=shared-drives/g' /etc/xrdp/sesman.ini

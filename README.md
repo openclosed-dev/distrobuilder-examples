@@ -31,6 +31,16 @@ groups
 lxd init --auto
 ```
 
+## Images
+
+### Base images
+
+| Image name | Descrption | Parent image |
+| --- | --- | --- |
+| base/core | Minimal image to boot | - |
+| base/desktop | Minimal desktop with RDP | base/core |
+| base/desktop-apps | Desktop with addtional applications | base/desktop |
+
 ## Building the images
 
 Invoking the command below builds all example images.
