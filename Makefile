@@ -1,12 +1,14 @@
-base_images := base/core base/desktop-minimal base/desktop-apps
-images := $(base_images) simple
+base_images := base/core base/desktop base/desktop-apps
+derived_images := simple
+images := $(base_images) $(derived_images)
 
 .PHONY: all $(images)
 
 all: $(images)
 
-base/desktop-minimal: base/core
-base/desktop-apps: base/desktop-minimal
+# Dependencies
+base/desktop: base/core
+base/desktop-apps: base/desktop
 
 simple: base/desktop-apps
 
