@@ -69,43 +69,19 @@ files:
     # User rules for ubuntu
     ubuntu ALL=(ALL) NOPASSWD:ALL
 
-- path: /home/user1/.config/dconf/
-  generator: copy
-  source: ./dconf/user
-  mode: 664
-  uid: 1001
-  gid: 1001
-
-- path: /home/user1/.config/mimeapps.list
-  generator: dump
-  mode: 664
-  uid: 1001
-  gid: 1001
-  content: |-
-    [Default Applications]
-    text/html=google-chrome.desktop
-    x-scheme-handler/http=google-chrome.desktop
-    x-scheme-handler/https=google-chrome.desktop
-    x-scheme-handler/about=google-chrome.desktop
-    x-scheme-handler/unknown=google-chrome.desktop
-
-- path: /home/user1/Desktop/
-  generator: copy
-  mode: 755
-  uid: 1001
-  gid: 1001
-  source: ./files/home/user1/Desktop/
-
 actions:
-# Locale
+# Locale and timezone
 - trigger: post-unpack
   action: |-
     #!/bin/sh
     set -eux
 
-    locale-gen en_US.UTF-8
-    update-locale LANG=en_US.UTF-8
+    locale-gen ja_JP.UTF-8
+    update-locale LANG=ja_JP.UTF-8
 
+    ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+# Adds ubuntu user
 - trigger: post-unpack
   action: |-
     #!/bin/sh
@@ -115,8 +91,8 @@ actions:
     getent group sudo >/dev/null 2>&1 || groupadd --system sudo
     useradd --create-home -s /bin/bash -G sudo -U ubuntu
 
+# Adds a user
 - trigger: post-unpack
-  # Adds a user
   action: |-
     #!/bin/sh
     set -eux
@@ -124,22 +100,6 @@ actions:
     # Create the first user account
     useradd -p '$6$EioZtEpQ//S3Fvyg$FROs9q9mkrzQAg43olkR.KXVfFeEtzpSl3W/wrE.0tL.hxKHc2TXfqq/YtsN1Z2hNKZ86T5gXaxX51eXJnQlS.' \
       --create-home -s /bin/bash -U user1
-
-    mkdir -p /home/user1/Desktop
-    chown user1:user1 /home/user1/Desktop
-
-- trigger: post-unpack
-  action: |-
-    #!/bin/sh
-    set -eux
-
-    mkdir -p /home/user1/.local/share/applications/
-    sed 's|^Exec=/usr/bin/google-chrome-stable|\0 --password-store=basic|g' \
-      /usr/share/applications/google-chrome.desktop > /home/user1/.local/share/applications/google-chrome.desktop
-
-    # Skips the welcome page for Google Chrome.
-    mkdir -p /home/user1/.config/google-chrome
-    touch /home/user1/.config/google-chrome/'First Run'
 
 - trigger: post-unpack
   action: |-
@@ -164,22 +124,3 @@ actions:
 
     # Cleanup temporary shadow paths
     rm /etc/*-
-
-- trigger: post-files
-  action: |-
-    #!/bin/sh
-    set -eux
-
-    mkdir -p /home/user1/.local/share/gvfs-metadata
-    chown -R user1:user1 /home/user1/.local
-
-    for file in /home/user1/Desktop/*.desktop; do
-      sudo -u user1 dbus-launch gio set $file metadata::trusted true
-    done
-
-- trigger: post-files
-  action: |-
-    #!/bin/sh
-    set -eux
-
-    chown -R user1:user1 /home/user1

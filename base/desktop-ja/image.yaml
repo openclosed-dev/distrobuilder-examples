@@ -1,0 +1,24 @@
+image:
+  distribution: ubuntu
+  release: focal
+
+source:
+  downloader: rootfs-http
+
+targets: {}
+
+files: []
+
+mappings:
+  architecture_map: debian
+
+packages:
+  manager: apt
+  update: true
+  cleanup: true
+  sets:
+  - packages:
+    - language-pack-ja
+    - ibus-mozc
+    - language-pack-gnome-ja
+    action: install
