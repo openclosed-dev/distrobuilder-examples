@@ -96,6 +96,21 @@ files:
   gid: 1001
   source: ./files/home/user1/Desktop/
 
+- path: /home/user1/.local/share/keyrings/default
+  generator: dump
+  mode: 644
+  uid: 1001
+  gid: 1001
+  content: |
+    Default_keyring
+
+- path: /home/user1/.local/share/keyrings/Default_keyring.keyring
+  generator: copy
+  mode: 600
+  uid: 1001
+  gid: 1001
+  source: ./files/home/user1/.local/share/keyrings/Default_keyring.keyring
+
 actions:
 # Locale
 - trigger: post-unpack
@@ -128,14 +143,11 @@ actions:
     mkdir -p /home/user1/Desktop
     chown user1:user1 /home/user1/Desktop
 
+# For Google Chrome
 - trigger: post-unpack
   action: |-
     #!/bin/sh
     set -eux
-
-    mkdir -p /home/user1/.local/share/applications/
-    sed 's|^Exec=/usr/bin/google-chrome-stable|\0 --password-store=basic|g' \
-      /usr/share/applications/google-chrome.desktop > /home/user1/.local/share/applications/google-chrome.desktop
 
     # Skips the welcome page for Google Chrome.
     mkdir -p /home/user1/.config/google-chrome
@@ -182,4 +194,5 @@ actions:
     #!/bin/sh
     set -eux
 
+    chmod 700 /home/user1/.local/share/keyrings
     chown -R user1:user1 /home/user1
