@@ -20,6 +20,11 @@ packages:
     action: install
     flags: [--no-install-recommends]
 
+files:
+- path: /etc/cloud/cloud.cfg.d/95_datasource.cfg
+  generator: copy
+  source: ./files/etc/cloud/cloud.cfg.d/95_datasource.cfg
+
 actions:
 - trigger: post-packages
   action: |-

@@ -4,5 +4,6 @@ config:
     users: {}
     write_files:
       - content: |
-          hello world
-        path: /root/greeting.txt
+          127.0.0.1 example.org
+        path: /etc/hosts
+        append: true
