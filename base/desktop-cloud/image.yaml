@@ -1,0 +1,30 @@
+image:
+  distribution: ubuntu
+  release: focal
+
+source:
+  downloader: rootfs-http
+
+targets: {}
+
+mappings:
+  architecture_map: debian
+
+packages:
+  manager: apt
+  update: true
+  cleanup: true
+  sets:
+  - packages:
+    - cloud-init
+    action: install
+    flags: [--no-install-recommends]
+
+actions:
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Fixes a problem that prevents cloud-init.service from being started.
+    sed '/^After=systemd-networkd-wait-online.service/d' /lib/systemd/system/cloud-init.service > /etc/systemd/system/cloud-init.service

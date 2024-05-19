@@ -1,0 +1,8 @@
+config:
+  user.user-data: |
+    #cloud-config
+    users: {}
+    write_files:
+      - content: |
+          hello world
+        path: /root/greeting.txt
