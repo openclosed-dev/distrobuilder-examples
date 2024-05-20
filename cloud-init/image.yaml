@@ -1,5 +1,5 @@
 image:
-  name: simple
+  name: cloud-init
   distribution: ubuntu
   release: focal
   description: |-
