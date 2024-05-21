@@ -76,18 +76,19 @@ files:
   uid: 1001
   gid: 1001
 
+- path: '/home/user1/.config/google-chrome/Local State'
+  generator: copy
+  mode: 600
+  uid: 1001
+  gid: 1001
+  source: './files//home/user1/.config/google-chrome/Local State'
+
 - path: /home/user1/.config/mimeapps.list
-  generator: dump
+  generator: copy
   mode: 664
   uid: 1001
   gid: 1001
-  content: |-
-    [Default Applications]
-    text/html=google-chrome.desktop
-    x-scheme-handler/http=google-chrome.desktop
-    x-scheme-handler/https=google-chrome.desktop
-    x-scheme-handler/about=google-chrome.desktop
-    x-scheme-handler/unknown=google-chrome.desktop
+  source: ./files/home/user1/.config/mimeapps.list
 
 - path: /home/user1/Desktop/
   generator: copy
