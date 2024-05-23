@@ -76,12 +76,24 @@ files:
   uid: 1001
   gid: 1001
 
+- path: '/home/user1/.config/google-chrome/First Run'
+  generator: dump
+  mode: 644
+  uid: 1001
+  gid: 1001
+
 - path: '/home/user1/.config/google-chrome/Local State'
   generator: copy
   mode: 600
   uid: 1001
   gid: 1001
-  source: './files//home/user1/.config/google-chrome/Local State'
+  source: './files/home/user1/.config/google-chrome/Local State'
+
+- path: /home/user1/.config/google-chrome/Default/Preferences
+  generator: copy
+  uid: 1001
+  gid: 1001
+  source: ./files/home/user1/.config/google-chrome/Default/Preferences
 
 - path: /home/user1/.config/mimeapps.list
   generator: copy
@@ -113,7 +125,7 @@ files:
   source: ./files/home/user1/.local/share/keyrings/Default_keyring.keyring
 
 actions:
-# Locale
+  # Locale
 - trigger: post-unpack
   action: |-
     #!/bin/sh
@@ -143,16 +155,6 @@ actions:
 
     mkdir -p /home/user1/Desktop
     chown user1:user1 /home/user1/Desktop
-
-# For Google Chrome
-- trigger: post-unpack
-  action: |-
-    #!/bin/sh
-    set -eux
-
-    # Skips the welcome page for Google Chrome.
-    mkdir -p /home/user1/.config/google-chrome
-    touch /home/user1/.config/google-chrome/'First Run'
 
 - trigger: post-unpack
   action: |-
