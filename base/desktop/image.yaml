@@ -23,9 +23,11 @@ packages:
     flags: [--no-install-recommends]
 
   - packages:
-    # For connecting via RDP
+    # For connecting over RDP
+    - xorgxrdp
     - xrdp
     action: install
+    flags: [--no-install-recommends]
 
 files:
 # Stops offering to upgrade
