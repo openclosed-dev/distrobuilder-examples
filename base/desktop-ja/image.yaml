@@ -18,8 +18,10 @@ packages:
   cleanup: true
   sets:
   - packages:
+    - fonts-noto-cjk
     - ibus-mozc
     - language-pack-gnome-ja
     - language-pack-ja
     - mozc-utils-gui
     action: install
+    flags: [--no-install-recommends]

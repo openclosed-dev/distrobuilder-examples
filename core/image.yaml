@@ -1,0 +1,124 @@
+image:
+  name: core
+  distribution: ubuntu
+  release: focal
+  description: |-
+    Ubuntu 20.04 core
+  architecture: x86_64
+
+source:
+  downloader: rootfs-http
+
+mappings:
+  architecture_map: debian
+
+packages:
+  manager: apt
+  update: false
+  cleanup: false
+
+files:
+- path: /etc/hostname
+  generator: hostname
+
+- path: /etc/hosts
+  generator: hosts
+
+- path: /etc/resolvconf/resolv.conf.d/original
+  generator: remove
+
+- path: /etc/resolvconf/resolv.conf.d/tail
+  generator: remove
+
+- path: /etc/machine-id
+  generator: dump
+
+- path: /var/lib/dbus/machine-id
+  generator: remove
+
+- path: /etc/netplan/10-lxc.yaml
+  generator: dump
+  mode: 0600
+  content: |-
+    network:
+      version: 2
+      ethernets:
+        eth0:
+          dhcp4: true
+          dhcp-identifier: mac
+
+- path: /etc/network/interfaces
+  generator: dump
+  content: |-
+    # This file describes the network interfaces available on your system
+    # and how to activate them. For more information, see interfaces(5).
+
+    # The loopback network interface
+    auto lo
+    iface lo inet loopback
+
+    auto eth0
+    iface eth0 inet dhcp
+
+    source /etc/network/interfaces.d/*.cfg
+
+- path: /etc/sudoers.d/90-incus
+  generator: dump
+  mode: 0440
+  content: |-
+    # User rules for ubuntu
+    ubuntu ALL=(ALL) NOPASSWD:ALL
+
+actions:
+# Locale
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    locale-gen en_US.UTF-8
+    update-locale LANG=en_US.UTF-8
+
+# Adds ubuntu user
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Create the ubuntu user account
+    getent group sudo >/dev/null 2>&1 || groupadd --system sudo
+    useradd --create-home -s /bin/bash -G sudo -U ubuntu
+
+# Adds a user
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Create the first user account
+    useradd -p '$6$EioZtEpQ//S3Fvyg$FROs9q9mkrzQAg43olkR.KXVfFeEtzpSl3W/wrE.0tL.hxKHc2TXfqq/YtsN1Z2hNKZ86T5gXaxX51eXJnQlS.' \
+      --create-home -s /bin/bash -U user1
+
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Enable systemd-networkd
+    systemctl enable systemd-networkd
+
+    # Disable UA attach
+    systemctl mask ua-auto-attach
+
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Cleanup underlying /run
+    mount -o bind / /mnt
+    rm -rf /mnt/run/*
+    umount /mnt
+
+    # Cleanup temporary shadow paths
+    rm /etc/*-

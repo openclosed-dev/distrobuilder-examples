@@ -17,12 +17,9 @@ packages:
   sets:
   - packages:
     - ubuntu-desktop-minimal
+    - yaru-theme-icon
     action: install
-
-  - packages:
-    # Disables the welcome screen
-    - gnome-initial-setup
-    action: remove
+    flags: [--no-install-recommends]
 
   - packages:
     # For connecting via RDP
