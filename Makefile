@@ -1,4 +1,4 @@
-base_images := base/bootstrap base/desktop base/desktop-apps base/desktop-cloud base/desktop-ja
+base_images := base/bootstrap base/core base/desktop base/desktop-apps base/desktop-cloud base/desktop-ja
 derived_images := cloud-init minimal minimal-ja simple 
 images := $(base_images) $(derived_images)
 
@@ -7,7 +7,8 @@ images := $(base_images) $(derived_images)
 all: $(images)
 
 # Dependencies
-base/desktop: base/bootstrap
+base/core: base/bootstrap
+base/desktop: base/core
 base/desktop-apps: base/desktop
 base/desktop-cloud: base/desktop
 base/desktop-ja: base/desktop

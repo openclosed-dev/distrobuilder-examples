@@ -16,16 +16,6 @@ packages:
   cleanup: true
   sets:
   - packages:
-    - curl
-    - fuse
-    - language-pack-en
-    - openssh-client
-    - sudo
-    - vim
-    - wget
-    action: install
-
-  - packages:
     - ubuntu-desktop-minimal
     action: install
 

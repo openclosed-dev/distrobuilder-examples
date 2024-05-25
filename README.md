@@ -37,7 +37,8 @@ lxd init --auto
 
 | Image name | Descrption | Parent image |
 | --- | --- | --- |
-| base/core | Minimal image to boot | - |
+| base/bootstrap | Minimal image to boot | - |
+| base/core | Command line tools | base/bootstrap |
 | base/desktop | Minimal desktop with RDP | base/core |
 | base/desktop-apps | Desktop with addtional applications | base/desktop |
 

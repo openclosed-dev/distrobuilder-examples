@@ -1,0 +1,27 @@
+image:
+  distribution: ubuntu
+  release: focal
+
+source:
+  downloader: rootfs-http
+
+targets: {}
+
+mappings:
+  architecture_map: debian
+
+packages:
+  manager: apt
+  update: true
+  cleanup: true
+  sets:
+  - packages:
+    - curl
+    - fuse
+    - language-pack-en
+    - openssh-client
+    - sudo
+    - vim
+    - wget
+    action: install
+    flags: [--no-install-recommends]
