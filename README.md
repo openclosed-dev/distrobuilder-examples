@@ -31,6 +31,12 @@ groups
 lxd init --auto
 ```
 
+Add a profile for image development.
+```
+lxc profile create develop
+lxc profile edit develop < develop-profile.yaml
+```
+
 ## Images
 
 ### Base images
