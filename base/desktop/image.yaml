@@ -16,6 +16,7 @@ packages:
   cleanup: true
   sets:
   - packages:
+    - fonts-ubuntu
     - ubuntu-desktop-minimal
     - yaru-theme-icon
     action: install
