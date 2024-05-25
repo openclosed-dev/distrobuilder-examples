@@ -18,6 +18,9 @@ packages:
   cleanup: false
 
 files:
+- path: /etc/apt/apt.conf.d/01proxy
+  generator: remove
+
 - path: /etc/hostname
   generator: hostname
 
