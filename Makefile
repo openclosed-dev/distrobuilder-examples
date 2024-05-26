@@ -1,24 +1,28 @@
-base_images := base/bootstrap base/core base/desktop base/desktop-apps base/desktop-cloud base/desktop-ja
+base_images := base/bootstrap base/core base/desktop base/desktop-apps base/desktop-ja
 derived_images := cloud-init core minimal minimal-ja simple 
 images := $(base_images) $(derived_images)
 
 .PHONY: all clean $(images)
 
 all: $(images)
-clean: $(images)
 
 # Dependencies
 base/core: base/bootstrap
 base/desktop: base/core
 base/desktop-apps: base/desktop
-base/desktop-cloud: base/desktop
 base/desktop-ja: base/desktop
 
-cloud-init: base/desktop-cloud
+cloud-init: base/desktop
 core: base/core
 minimal: base/desktop
 minimal-ja: base/desktop-ja
 simple: base/desktop-apps
 
 $(images):
-	$(MAKE) --directory=$@ $(MAKECMDGOALS)
+	$(MAKE) --directory=$@
+
+clean:
+	for image in $(images); \
+	do \
+		$(MAKE) --directory=$$image clean; \
+	done
