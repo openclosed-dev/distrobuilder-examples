@@ -2,9 +2,10 @@ base_images := base/bootstrap base/core base/desktop base/desktop-apps base/desk
 derived_images := cloud-init core minimal minimal-ja simple 
 images := $(base_images) $(derived_images)
 
-.PHONY: all $(images)
+.PHONY: all clean $(images)
 
 all: $(images)
+clean: $(images)
 
 # Dependencies
 base/core: base/bootstrap
@@ -20,4 +21,4 @@ minimal-ja: base/desktop-ja
 simple: base/desktop-apps
 
 $(images):
-	$(MAKE) --directory=$@
+	$(MAKE) --directory=$@ $(MAKECMDGOALS)
