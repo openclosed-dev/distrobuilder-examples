@@ -1,5 +1,5 @@
 base_images := base/bootstrap base/core base/desktop base/desktop-apps base/desktop-ja
-derived_images := cloud-init core minimal minimal-ja simple 
+derived_images := core minimal minimal-ja simple 
 images := $(base_images) $(derived_images)
 
 .PHONY: all clean $(images)
@@ -12,7 +12,6 @@ base/desktop: base/core
 base/desktop-apps: base/desktop
 base/desktop-ja: base/desktop
 
-cloud-init: base/desktop
 core: base/core
 minimal: base/desktop
 minimal-ja: base/desktop-ja

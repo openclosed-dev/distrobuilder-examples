@@ -1,9 +1,0 @@
-config:
-  user.user-data: |
-    #cloud-config
-    users: {}
-    write_files:
-      - content: |
-          127.0.0.1 example.org
-        path: /etc/hosts
-        append: true
