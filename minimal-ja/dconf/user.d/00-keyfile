@@ -1,0 +1,2 @@
+[org/gnome/desktop/input-sources]
+sources=[('ibus', 'mozc-jp'), ('xkb', 'us')]
