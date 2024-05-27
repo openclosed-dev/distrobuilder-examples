@@ -1,5 +1,6 @@
 .cache/
 rootfs/
+*.db
 *.squashfs
 *.tar
 *.tar.gz

@@ -59,6 +59,13 @@ files:
   uid: 1001
   gid: 1001
 
+- path: /home/user1/.mozc/config1.db
+  generator: copy
+  source: ./mozc/config1.db
+  mode: 664
+  uid: 1001
+  gid: 1001
+
 actions:
 # Locale and timezone
 - trigger: post-unpack
@@ -93,6 +100,9 @@ actions:
 
     mkdir -p /home/user1/.config
     chown user1:user1 /home/user1/.config
+
+    mkdir -p /home/user1/.mozc
+    chown user1:user1 /home/user1/.mozc
 
 - trigger: post-unpack
   action: |-

@@ -1,0 +1,109 @@
+general_config {
+  config_version: 1
+  last_modified_product_version: "2.23.2815.102"
+  last_modified_time: 1716817600
+  platform: "Linux"
+}
+verbose_level: 0
+incognito_mode: false
+check_default: true
+presentation_mode: false
+preedit_method: ROMAN
+session_keymap: CUSTOM
+custom_keymap_table: "status\tkey\tcommand\nComposition\tBackspace\tBackspace\nConversion\tBackspace\tCancel\nPrecomposition\tBackspace\tRevert\nComposition\tCtrl a\tMoveCursorToBeginning\nConversion\tCtrl a\tSegmentFocusFirst\nComposition\tCtrl Backspace\tBackspace\nConversion\tCtrl Backspace\tCancel\nPrecomposition\tCtrl Backspace\tUndo\nComposition\tCtrl d\tMoveCursorRight\nConversion\tCtrl d\tSegmentFocusRight\nPrediction\tCtrl Delete\tDeleteSelectedCandidate\nComposition\tCtrl Down\tMoveCursorToEnd\nConversion\tCtrl Down\tCommitOnlyFirstSegment\nComposition\tCtrl e\tMoveCursorToBeginning\nConversion\tCtrl e\tConvertPrev\nComposition\tCtrl Enter\tCommit\nConversion\tCtrl Enter\tCommit\nComposition\tCtrl f\tMoveCursorToEnd\nConversion\tCtrl f\tSegmentFocusLast\nComposition\tCtrl g\tDelete\nConversion\tCtrl g\tCancel\nComposition\tCtrl h\tBackspace\nConversion\tCtrl h\tCancel\nComposition\tCtrl i\tConvertToFullKatakana\nConversion\tCtrl i\tConvertToFullKatakana\nComposition\tCtrl k\tMoveCursorLeft\nConversion\tCtrl k\tSegmentWidthShrink\nComposition\tCtrl l\tMoveCursorRight\nConversion\tCtrl l\tSegmentWidthExpand\nComposition\tCtrl Left\tMoveCursorToBeginning\nConversion\tCtrl Left\tSegmentFocusFirst\nComposition\tCtrl m\tCommit\nConversion\tCtrl m\tCommit\nComposition\tCtrl n\tMoveCursorToEnd\nConversion\tCtrl n\tCommitOnlyFirstSegment\nComposition\tCtrl o\tConvertToHalfWidth\nConversion\tCtrl o\tConvertToHalfWidth\nComposition\tCtrl p\tConvertToFullAlphanumeric\nConversion\tCtrl p\tConvertToFullAlphanumeric\nComposition\tCtrl Right\tMoveCursorToEnd\nConversion\tCtrl Right\tSegmentFocusLast\nComposition\tCtrl s\tMoveCursorLeft\nConversion\tCtrl s\tSegmentFocusLeft\nConversion\tCtrl Shift Space\tInsertFullSpace\nPrecomposition\tCtrl Shift Space\tInsertFullSpace\nComposition\tCtrl Shift Space\tInsertFullSpace\nPrecomposition\tCtrl Space\tIMEOff\nConversion\tCtrl Space\tIMEOff\nDirectInput\tCtrl Space\tIMEOn\nComposition\tCtrl Space\tIMEOff\nComposition\tCtrl Space\tInsertHalfSpace\nConversion\tCtrl Space\tInsertHalfSpace\nComposition\tCtrl t\tConvertToHalfAlphanumeric\nConversion\tCtrl t\tConvertToHalfAlphanumeric\nComposition\tCtrl u\tConvertToHiragana\nConversion\tCtrl u\tConvertToHiragana\nComposition\tCtrl Up\tMoveCursorToBeginning\nConversion\tCtrl Up\tConvertPrev\nComposition\tCtrl x\tMoveCursorToEnd\nConversion\tCtrl x\tConvertNext\nComposition\tCtrl z\tCancel\nConversion\tCtrl z\tCancel\nComposition\tDelete\tDelete\nConversion\tDelete\tCancel\nComposition\tDown\tMoveCursorToEnd\nConversion\tDown\tConvertNext\nSuggestion\tDown\tPredictAndConvert\nComposition\tEisu\tToggleAlphanumericMode\nConversion\tEisu\tToggleAlphanumericMode\nDirectInput\tEisu\tIMEOn\nPrecomposition\tEisu\tToggleAlphanumericMode\nComposition\tEnd\tMoveCursorToEnd\nConversion\tEnd\tSegmentFocusLast\nComposition\tEnter\tCommit\nConversion\tEnter\tCommit\nComposition\tESC\tCancel\nConversion\tESC\tCancel\nComposition\tF10\tConvertToHalfAlphanumeric\nConversion\tF10\tConvertToHalfAlphanumeric\nDirectInput\tF13\tIMEOn\nComposition\tF2\tConvertWithoutHistory\nComposition\tF6\tConvertToHiragana\nConversion\tF6\tConvertToHiragana\nComposition\tF7\tConvertToFullKatakana\nConversion\tF7\tConvertToFullKatakana\nComposition\tF8\tConvertToHalfWidth\nConversion\tF8\tConvertToHalfWidth\nComposition\tF9\tConvertToFullAlphanumeric\nConversion\tF9\tConvertToFullAlphanumeric\nComposition\tHenkan\tConvert\nConversion\tHenkan\tConvertNext\nDirectInput\tHenkan\tReconvert\nPrecomposition\tHenkan\tReconvert\nComposition\tHiragana\tInputModeHiragana\nConversion\tHiragana\tInputModeHiragana\nDirectInput\tHiragana\tIMEOn\nPrecomposition\tHiragana\tInputModeHiragana\nComposition\tHome\tMoveCursorToBeginning\nConversion\tHome\tSegmentFocusFirst\nComposition\tKatakana\tInputModeFullKatakana\nConversion\tKatakana\tInputModeFullKatakana\nDirectInput\tKatakana\tIMEOn\nPrecomposition\tKatakana\tInputModeFullKatakana\nComposition\tLeft\tMoveCursorLeft\nConversion\tLeft\tSegmentFocusLeft\nComposition\tMuhenkan\tSwitchKanaType\nConversion\tMuhenkan\tSwitchKanaType\nPrecomposition\tMuhenkan\tInputModeSwitchKanaType\nConversion\tPageDown\tConvertNextPage\nConversion\tPageUp\tConvertPrevPage\nComposition\tRight\tMoveCursorRight\nConversion\tRight\tSegmentFocusRight\nComposition\tShift Backspace\tBackspace\nConversion\tShift Backspace\tCancel\nConversion\tShift Down\tConvertNextPage\nSuggestion\tShift Enter\tCommitFirstSuggestion\nComposition\tShift ESC\tCancel\nConversion\tShift ESC\tCancel\nConversion\tShift Henkan\tConvertPrev\nComposition\tShift Left\tMoveCursorLeft\nConversion\tShift Left\tSegmentWidthShrink\nComposition\tShift Muhenkan\tConvertToFullAlphanumeric\nConversion\tShift Muhenkan\tConvertToFullAlphanumeric\nPrecomposition\tShift Muhenkan\tToggleAlphanumericMode\nComposition\tShift Right\tMoveCursorRight\nConversion\tShift Right\tSegmentWidthExpand\nComposition\tShift Space\tConvert\nConversion\tShift Space\tConvertPrev\nPrecomposition\tShift Space\tInsertAlternateSpace\nConversion\tShift Tab\tConvertPrev\nConversion\tShift Up\tConvertPrevPage\nComposition\tSpace\tConvert\nConversion\tSpace\tConvertNext\nPrecomposition\tSpace\tInsertSpace\nComposition\tTab\tPredictAndConvert\nConversion\tTab\tPredictAndConvert\nConversion\tUp\tConvertPrev\nComposition\tASCII\tInsertCharacter\nComposition\tKanji\tIMEOff\nComposition\tOFF\tIMEOff\nComposition\tON\tIMEOn\nConversion\tKanji\tIMEOff\nConversion\tOFF\tIMEOff\nConversion\tON\tIMEOn\nDirectInput\tKanji\tIMEOn\nDirectInput\tON\tIMEOn\nPrecomposition\tASCII\tInsertCharacter\nPrecomposition\tKanji\tIMEOff\nPrecomposition\tOFF\tIMEOff\nPrecomposition\tON\tIMEOn\n"
+punctuation_method: KUTEN_TOUTEN
+symbol_method: CORNER_BRACKET_MIDDLE_DOT
+space_character_form: FUNDAMENTAL_INPUT_MODE
+use_keyboard_to_change_preedit_method: false
+history_learning_level: DEFAULT_HISTORY
+selection_shortcut: SHORTCUT_123456789
+character_form_rules {
+  group: "\343\202\242"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: FULL_WIDTH
+}
+character_form_rules {
+  group: "A"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: LAST_FORM
+}
+character_form_rules {
+  group: "0"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: LAST_FORM
+}
+character_form_rules {
+  group: "(){}[]"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: LAST_FORM
+}
+character_form_rules {
+  group: ".,"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: LAST_FORM
+}
+character_form_rules {
+  group: "\343\200\202\343\200\201"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: FULL_WIDTH
+}
+character_form_rules {
+  group: "\343\203\273\343\200\214\343\200\215"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: FULL_WIDTH
+}
+character_form_rules {
+  group: "\"\'"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: LAST_FORM
+}
+character_form_rules {
+  group: ":;"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: LAST_FORM
+}
+character_form_rules {
+  group: "#%&@$^_|`\\"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: LAST_FORM
+}
+character_form_rules {
+  group: "~"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: LAST_FORM
+}
+character_form_rules {
+  group: "<>=+-/*"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: LAST_FORM
+}
+character_form_rules {
+  group: "?!"
+  preedit_character_form: FULL_WIDTH
+  conversion_character_form: LAST_FORM
+}
+use_auto_ime_turn_off: true
+shift_key_mode_switch: ASCII_INPUT_MODE
+numpad_character_form: NUMPAD_HALF_WIDTH
+use_auto_conversion: false
+auto_conversion_key: 13
+yen_sign_character: YEN_SIGN
+use_japanese_layout: false
+use_date_conversion: true
+use_single_kanji_conversion: true
+use_symbol_conversion: true
+use_number_conversion: true
+use_emoticon_conversion: true
+use_calculator: true
+use_t13n_conversion: true
+use_zip_code_conversion: true
+use_spelling_correction: true
+use_emoji_conversion: true
+information_list_config {
+  use_local_usage_dictionary: true
+}
+use_history_suggest: true
+use_dictionary_suggest: true
+use_realtime_conversion: true
+suggestions_size: 3
+use_mode_indicator: true

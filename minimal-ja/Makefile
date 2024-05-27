@@ -12,6 +12,9 @@ clean:
 dconf/user: dconf/user.d/*
 	dconf compile $@ dconf/user.d
 
-incus.tar.gz: image.yaml $(base_image) dconf/user
+mozc/config1.db: mozc/config.textproto
+	protoc --encode=mozc.config.Config mozc/config.proto < $< > $@
+
+incus.tar.gz: image.yaml $(base_image) dconf/user mozc/config1.db
 	sudo rm -f incus.tar.gz rootfs.squashfs
 	sudo distrobuilder build-lxd --compression=gzip -o source.url=file://$(base_image) $<

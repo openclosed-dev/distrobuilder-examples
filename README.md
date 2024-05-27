@@ -12,12 +12,13 @@ Distrobuilder template examples for generating LXD container images.
 6. mksquashfs
 7. dconf
 8. apt-cacher-ng
+9. protobuf-compiler
 
 Required packaged can be installed using `apt install` and `snap install`.
 ```
 sudo snap install lxd
 sudo snap install distrobuilder --classic
-sudo apt install debootstrap make squashfs-tools dconf-cli apt-cacher-ng
+sudo apt install debootstrap make squashfs-tools dconf-cli apt-cacher-ng protobuf-compiler
 ```
 
 The LXD service must be configured properly first.
