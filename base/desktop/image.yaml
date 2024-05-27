@@ -17,6 +17,7 @@ packages:
   sets:
   - packages:
     - fonts-ubuntu
+    - gedit
     - ubuntu-desktop-minimal
     - yaru-theme-icon
     action: install
