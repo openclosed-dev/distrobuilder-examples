@@ -1,0 +1,119 @@
+image:
+  name: conda
+  distribution: ubuntu
+  release: focal
+  description: |-
+    Ubuntu 20.04 Desktop with Applications
+  architecture: x86_64
+
+source:
+  downloader: rootfs-http
+
+mappings:
+  architecture_map: debian
+
+packages:
+  manager: apt
+  update: false
+  cleanup: false
+
+files:
+- path: /etc/apt/apt.conf.d/01proxy
+  generator: remove
+
+- path: /etc/hostname
+  generator: hostname
+
+- path: /etc/hosts
+  generator: hosts
+
+- path: /etc/resolvconf/resolv.conf.d/original
+  generator: remove
+
+- path: /etc/resolvconf/resolv.conf.d/tail
+  generator: remove
+
+- path: /etc/machine-id
+  generator: dump
+
+- path: /var/lib/dbus/machine-id
+  generator: remove
+
+- path: /home/user1/install-conda.sh
+  generator: copy
+  source: ./files/home/user1/install-conda.sh
+
+# Files for cloud-init
+- name: meta-data
+  generator: cloud-init
+
+- name: network-config
+  generator: cloud-init
+
+- name: user-data
+  generator: cloud-init
+
+- name: vendor-data
+  generator: cloud-init
+
+actions:
+# Locale
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    locale-gen en_US.UTF-8
+    update-locale LANG=en_US.UTF-8
+
+# Adds ubuntu user
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Create the ubuntu user account
+    getent group sudo >/dev/null 2>&1 || groupadd --system sudo
+    useradd --create-home -s /bin/bash -G sudo -U ubuntu
+
+# Adds a user
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Create the first user account
+    useradd -p '$6$EioZtEpQ//S3Fvyg$FROs9q9mkrzQAg43olkR.KXVfFeEtzpSl3W/wrE.0tL.hxKHc2TXfqq/YtsN1Z2hNKZ86T5gXaxX51eXJnQlS.' \
+      --create-home -s /bin/bash -U user1
+
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Enable systemd-networkd
+    systemctl enable systemd-networkd
+
+    # Disable UA attach
+    systemctl mask ua-auto-attach
+
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Cleanup underlying /run
+    mount -o bind / /mnt
+    rm -rf /mnt/run/*
+    umount /mnt
+
+    # Cleanup temporary shadow paths
+    rm /etc/*-
+
+- trigger: post-files
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    sudo -u user1 bash /home/user1/install-conda.sh
+    rm -f /home/user1/install-conda.sh
