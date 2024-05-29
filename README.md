@@ -61,7 +61,7 @@ make
 
 The following command imports the image built in the `simple` directory.
 ```
-lxc image import simple/incus.tar.gz simple/rootfs.squashfs --alias simple
+lxc image import simple/incus.tar simple/rootfs.squashfs --alias simple
 
 # lists images
 lxc image list

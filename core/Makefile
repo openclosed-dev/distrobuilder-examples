@@ -4,11 +4,11 @@ base_image := $(base_dir)/base/core/rootfs.squashfs
 
 .PHONY: all clean
 
-all: incus.tar.gz
+all: incus.tar
 
 clean:
-	sudo rm -f *.tar.gz *.squashfs 
+	sudo rm -f *.tar *.squashfs 
 
-incus.tar.gz: image.yaml $(base_image)
-	sudo rm -f incus.tar.gz rootfs.squashfs
-	sudo distrobuilder build-lxd --compression=gzip -o source.url=file://$(base_image) $<
+incus.tar: image.yaml $(base_image)
+	sudo rm -f incus.tar rootfs.squashfs
+	sudo distrobuilder build-lxd --compression=lz4 -o source.url=file://$(base_image) $<

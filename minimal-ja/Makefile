@@ -4,10 +4,10 @@ base_image := $(base_dir)/base/desktop-ja/rootfs.squashfs
 
 .PHONY: all clean
 
-all: incus.tar.gz
+all: incus.tar
 
 clean:
-	sudo rm -f *.tar.gz *.squashfs 
+	sudo rm -f *.tar *.squashfs 
 
 dconf/user: dconf/user.d/*
 	dconf compile $@ dconf/user.d
@@ -15,6 +15,6 @@ dconf/user: dconf/user.d/*
 mozc/config1.db: mozc/config.textproto
 	protoc --encode=mozc.config.Config mozc/config.proto < $< > $@
 
-incus.tar.gz: image.yaml $(base_image) dconf/user mozc/config1.db
-	sudo rm -f incus.tar.gz rootfs.squashfs
-	sudo distrobuilder build-lxd --compression=gzip -o source.url=file://$(base_image) $<
+incus.tar: image.yaml $(base_image) dconf/user mozc/config1.db
+	sudo rm -f incus.tar rootfs.squashfs
+	sudo distrobuilder build-lxd --compression=lz4 -o source.url=file://$(base_image) $<

@@ -6,15 +6,15 @@ downloads := downloads/miniconda.sh
 
 .PHONY: all clean
 
-all: incus.tar.gz
+all: incus.tar
 
 downloads/miniconda.sh:
 	mkdir -p downloads
 	wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $@
 
 clean:
-	sudo rm -f *.tar.gz *.squashfs 
+	sudo rm -f *.tar *.squashfs 
 
-incus.tar.gz: image.yaml $(base_image) $(files) $(downloads)
-	sudo rm -f incus.tar.gz rootfs.squashfs
-	sudo distrobuilder build-lxd --compression=gzip -o source.url=file://$(base_image) $<
+incus.tar: image.yaml $(base_image) $(files) $(downloads)
+	sudo rm -f incus.tar rootfs.squashfs
+	sudo distrobuilder build-lxd --compression=lz4 -o source.url=file://$(base_image) $<

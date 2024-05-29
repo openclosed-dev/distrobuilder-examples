@@ -5,14 +5,14 @@ files=$(shell find files -type f | sed -e 's/ /\\ /g')
 
 .PHONY: all clean
 
-all: incus.tar.gz
+all: incus.tar
 
 clean:
-	sudo rm -f *.tar.gz *.squashfs 
+	sudo rm -f *.tar *.squashfs 
 
 dconf/user: dconf/user.d/*
 	dconf compile $@ dconf/user.d
 
-incus.tar.gz: image.yaml $(base_image) dconf/user $(files)
-	sudo rm -f incus.tar.gz rootfs.squashfs
-	sudo distrobuilder build-lxd --compression=gzip -o source.url=file://$(base_image) $<
+incus.tar: image.yaml $(base_image) dconf/user $(files)
+	sudo rm -f incus.tar rootfs.squashfs
+	sudo distrobuilder build-lxd --compression=lz4 -o source.url=file://$(base_image) $<

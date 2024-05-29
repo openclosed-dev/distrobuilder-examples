@@ -15,4 +15,4 @@ rootfs.squashfs: image.yaml $(base_image) $(files)
 	sudo rm -rf rootfs
 	sudo rm -f rootfs.squashfs
 	sudo distrobuilder build-dir -o source.url=file://$(base_image) $< rootfs
-	sudo mksquashfs rootfs $@
+	sudo mksquashfs rootfs $@ -comp lz4
