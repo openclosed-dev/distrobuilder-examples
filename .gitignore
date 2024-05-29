@@ -1,4 +1,5 @@
 .cache/
+downloads/
 rootfs/
 *.db
 *.squashfs
