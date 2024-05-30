@@ -1,0 +1,182 @@
+image:
+  name: vscode
+  distribution: ubuntu
+  release: focal
+  description: |-
+    Ubuntu 20.04 Desktop with Applications
+  architecture: x86_64
+
+source:
+  downloader: rootfs-http
+
+mappings:
+  architecture_map: debian
+
+packages:
+  manager: apt
+  update: true
+  cleanup: true
+
+  sets:
+  - packages:
+    - code
+    action: install
+    flags: [--no-install-recommends]
+
+  repositories:
+  - name: vscode.list
+    url: |-
+      deb http://packages.microsoft.com/repos/code stable main
+    key: |-
+      -----BEGIN PGP PUBLIC KEY BLOCK-----
+      Version: GnuPG v1.4.7 (GNU/Linux)
+
+      mQENBFYxWIwBCADAKoZhZlJxGNGWzqV+1OG1xiQeoowKhssGAKvd+buXCGISZJwT
+      LXZqIcIiLP7pqdcZWtE9bSc7yBY2MalDp9Liu0KekywQ6VVX1T72NPf5Ev6x6DLV
+      7aVWsCzUAF+eb7DC9fPuFLEdxmOEYoPjzrQ7cCnSV4JQxAqhU4T6OjbvRazGl3ag
+      OeizPXmRljMtUUttHQZnRhtlzkmwIrUivbfFPD+fEoHJ1+uIdfOzZX8/oKHKLe2j
+      H632kvsNzJFlROVvGLYAk2WRcLu+RjjggixhwiB+Mu/A8Tf4V6b+YppS44q8EvVr
+      M+QvY7LNSOffSO6Slsy9oisGTdfE39nC7pVRABEBAAG0N01pY3Jvc29mdCAoUmVs
+      ZWFzZSBzaWduaW5nKSA8Z3Bnc2VjdXJpdHlAbWljcm9zb2Z0LmNvbT6JATUEEwEC
+      AB8FAlYxWIwCGwMGCwkIBwMCBBUCCAMDFgIBAh4BAheAAAoJEOs+lK2+EinPGpsH
+      /32vKy29Hg51H9dfFJMx0/a/F+5vKeCeVqimvyTM04C+XENNuSbYZ3eRPHGHFLqe
+      MNGxsfb7C7ZxEeW7J/vSzRgHxm7ZvESisUYRFq2sgkJ+HFERNrqfci45bdhmrUsy
+      7SWw9ybxdFOkuQoyKD3tBmiGfONQMlBaOMWdAsic965rvJsd5zYaZZFI1UwTkFXV
+      KJt3bp3Ngn1vEYXwijGTa+FXz6GLHueJwF0I7ug34DgUkAFvAs8Hacr2DRYxL5RJ
+      XdNgj4Jd2/g6T9InmWT0hASljur+dJnzNiNCkbn9KbX7J/qK1IbR8y560yRmFsU+
+      NdCFTW7wY0Fb1fWJ+/KTsC4=
+      =J6gs
+      -----END PGP PUBLIC KEY BLOCK-----
+
+files:
+- path: /etc/apt/apt.conf.d/01proxy
+  generator: remove
+
+- path: /etc/hostname
+  generator: hostname
+
+- path: /etc/hosts
+  generator: hosts
+
+- path: /etc/resolvconf/resolv.conf.d/original
+  generator: remove
+
+- path: /etc/resolvconf/resolv.conf.d/tail
+  generator: remove
+
+- path: /etc/machine-id
+  generator: dump
+
+- path: /var/lib/dbus/machine-id
+  generator: remove
+
+# Files for cloud-init
+- name: meta-data
+  generator: cloud-init
+
+- name: network-config
+  generator: cloud-init
+
+- name: user-data
+  generator: cloud-init
+
+- name: vendor-data
+  generator: cloud-init
+
+- path: /etc/profile.d/10-vscode.sh
+  generator: dump
+  mode: 644
+  content: |-
+    export DONT_PROMPT_WSL_INSTALL=1
+
+- path: /home/user1/
+  generator: copy
+  uid: 1001
+  gid: 1001
+  source: ./downloads/ms-ceintl.vscode-language-pack-ja.vsix
+
+- path: /home/user1/.vscode/
+  generator: copy
+  mode: 644
+  uid: 1001
+  gid: 1001
+  source: ./files/home/user1/.vscode/argv.json
+
+- path: /home/user1/.config/Code/
+  generator: copy
+  mode: 644
+  uid: 1001
+  gid: 1001
+  source: ./files/home/user1/.config/Code/languagepacks.json
+
+actions:
+# Locale
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    locale-gen en_US.UTF-8
+    update-locale LANG=en_US.UTF-8
+
+# Adds ubuntu user
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Create the ubuntu user account
+    getent group sudo >/dev/null 2>&1 || groupadd --system sudo
+    useradd --create-home -s /bin/bash -G sudo -U ubuntu
+
+# Adds a user
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Create the first user account
+    useradd -p '$6$EioZtEpQ//S3Fvyg$FROs9q9mkrzQAg43olkR.KXVfFeEtzpSl3W/wrE.0tL.hxKHc2TXfqq/YtsN1Z2hNKZ86T5gXaxX51eXJnQlS.' \
+      --create-home -s /bin/bash -U user1
+
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Enable systemd-networkd
+    systemctl enable systemd-networkd
+
+    # Disable UA attach
+    systemctl mask ua-auto-attach
+
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Cleanup underlying /run
+    mount -o bind / /mnt
+    rm -rf /mnt/run/*
+    umount /mnt
+
+    # Cleanup temporary shadow paths
+    rm /etc/*-
+
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    mkdir -p /home/user1/.config/Code
+    mkdir -p /home/user1/.vscode
+
+    chown -R user1:user1 /home/user1/.config
+    chown user1:user1 /home/user1/.vscode
+
+- trigger: post-files
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    sudo -u user1 DONT_PROMPT_WSL_INSTALL=1 code --install-extension /home/user1/ms-ceintl.vscode-language-pack-ja.vsix
