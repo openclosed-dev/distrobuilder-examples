@@ -7,4 +7,3 @@ cd ~/miniconda3/bin
 ./conda init bash
 
 ./conda update -n base -c defaults -y conda
-./conda install -c conda-forge -y jupyterlab
