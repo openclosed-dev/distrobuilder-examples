@@ -1,0 +1,148 @@
+image:
+  name: conda-shared
+  distribution: ubuntu
+  release: focal
+  description: |-
+    Ubuntu 20.04 Desktop with Applications
+  architecture: x86_64
+
+source:
+  downloader: rootfs-http
+
+mappings:
+  architecture_map: debian
+
+packages:
+  manager: apt
+  update: true
+  cleanup: true
+
+  sets:
+  - packages:
+    - conda
+    action: install
+    flags: [--no-install-recommends]
+
+  repositories:
+  - name: conda.list
+    url: |-
+      deb https://repo.anaconda.com/pkgs/misc/debrepo/conda stable main
+    key: |-
+      -----BEGIN PGP PUBLIC KEY BLOCK-----
+
+      mQENBFvcQHsBCAC+wiEzTIm3HdILECH6nIM8ZoXTd2egW7np1pE2mYXr/kcsm7XY
+      hczK6Xa4XmN+eRF0rtoWJAHtp4IT+Jh4feB3oQjFA058+lm0jhmp7hR5E4i7dYgW
+      kFQpTywnYGbzKy4S7xhdO2df5CIUD6tHAI/4+5YZfUIjeA2TJYJ6Cc4U+P+VFWS7
+      AVsdA3TwRbd35HsG6ketImtVcpZXa+UGjJRjIKmrYy8mz5jY6rj0f2ctnVTM6pPx
+      XEijdyqdAiyINrFM8O6v4duMkIBn5pzOnQGD2E7VymYzRKlsA30j4YbAy349lOWA
+      htFSTQWLzTSz2Lz7IjMmI1f85B0keGqDTf41ABEBAAG0MkRpc3RyaWJ1dGlvbiBU
+      ZWFtIDxkaXN0cmlidXRpb25fdGVhbUBhbmFjb25kYS5jb20+iQE4BBMBAgAiBQJb
+      3EB7AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCK60+LKdgoBvnXCACC
+      Qh2OEmYsSrw+mLC5Zjq/6IsfQemEOauGP3MtpkxtVu6N0OzH0mJHv7KJyy1PFq9D
+      H1YnUjBKESAbIqKttuJ+hte2vdBfHTb2DWNBVc8ueE7NxxJe4J+QH8RS+BGYJRmH
+      XxNCSEp3Ewyh92XOW9fjLgKd3mF/NggTUC11ieCZ85VjLOdmByLkECbxSMfXlOk7
+      f93AhzWJSx1oD4wzz+a2vjNpDeI0gV0fHKZaPL91Kzed8XRWgsF5GNXtLElUdBp1
+      Te/de7U1TeMXoOjEKtF7MWWPUu3ZkMMViRyGZ5aFmTf/Zqfw7lh4PppOR+dkxw3k
+      fOKYCD77M4BjaEltjhXeuQENBFvcQHsBCACnDAppEgOqG6F+odoxxbW2ZF8r6YLB
+      4yYmHwsmCDIIprRiUp2/Wkhw+1lkVr66mN66uoofYtfBQhzzM/P9RF8tX1ewQCZs
+      7G7JFAwhTJyOMrXDfhuGtheJotTghsCIQXNBR7Vf+tF9eXQm3HUnj9UnkQi8VDlv
+      aAn2sP6jy5xSNg4QpZqqJdhc/9j2OfA6TMGj2GY8vRdhyW5pl8Gxlm9Oyq27E93E
+      6tquwHE4+I6Pi8Bb4vXXOER7TzZons56VbISHZob+r7vD8Hxwij1rmGtNPQRUTVz
+      Nc6sv7fuAbuLzDeL1fpPbXpl1pKNHNQy2qs5NNQbaty5RiAE4H+wGD+NABEBAAGJ
+      AR8EGAECAAkFAlvcQHsCGwwACgkQiutPiynYKAaZygf9GM4ptH/9D5LH7syfAIW8
+      C47kL59l0EjSh8AomWGLfkQJElgbrumZ46dQVFrvy/xIPwZbr2w/0faVeusXc3v2
+      WtuLLMwNtpjNsGY6u5ng2v50zBUQuvwA6kdjYWXZawMTSV8Nm4EwFpMn4nwmzuxM
+      20JgVfGByLcFCUiqdyTnyztx+6WMI6YxlyHoGyBQOAWUZKweUjM+A6cRZIXCtPxk
+      ++ML6pmX/yFmpsVPbtnYyny0iTOpC2ERmSfB06f0IZrJ3k2kr/UQuEVNNEA7s5pU
+      4EHH76p3pP1jEOWhdlD/OvJUSQxvzsXiNLHz9rvmFSlSdnzg3p64JYzDIu30S9CQ
+      fg==
+      =HDbh
+      -----END PGP PUBLIC KEY BLOCK-----
+
+files:
+- path: /etc/apt/apt.conf.d/01proxy
+  generator: remove
+
+- path: /etc/hostname
+  generator: hostname
+
+- path: /etc/hosts
+  generator: hosts
+
+- path: /etc/resolvconf/resolv.conf.d/original
+  generator: remove
+
+- path: /etc/resolvconf/resolv.conf.d/tail
+  generator: remove
+
+- path: /etc/machine-id
+  generator: dump
+
+- path: /var/lib/dbus/machine-id
+  generator: remove
+
+# Files for cloud-init
+- name: meta-data
+  generator: cloud-init
+
+- name: network-config
+  generator: cloud-init
+
+- name: user-data
+  generator: cloud-init
+
+- name: vendor-data
+  generator: cloud-init
+
+actions:
+# Locale
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    locale-gen en_US.UTF-8
+    update-locale LANG=en_US.UTF-8
+
+# Adds ubuntu user
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Create the ubuntu user account
+    getent group sudo >/dev/null 2>&1 || groupadd --system sudo
+    useradd --create-home -s /bin/bash -G sudo -U ubuntu
+
+# Adds a user
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Create the first user account
+    useradd --create-home -s /bin/bash -U user1
+
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Enable systemd-networkd
+    systemctl enable systemd-networkd
+
+    # Disable UA attach
+    systemctl mask ua-auto-attach
+
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Cleanup underlying /run
+    mount -o bind / /mnt
+    rm -rf /mnt/run/*
+    umount /mnt
+
+    # Cleanup temporary shadow paths
+    rm /etc/*-

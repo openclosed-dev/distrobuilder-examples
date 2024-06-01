@@ -4,6 +4,11 @@ config:
   user.user-data: |
     #cloud-config
     users: []
+    chpasswd:
+      expire: false
+      users:
+        - name: user1
+          password: $6$EioZtEpQ//S3Fvyg$FROs9q9mkrzQAg43olkR.KXVfFeEtzpSl3W/wrE.0tL.hxKHc2TXfqq/YtsN1Z2hNKZ86T5gXaxX51eXJnQlS.
     write_files:
       - content: |
           127.0.0.1 example.org
