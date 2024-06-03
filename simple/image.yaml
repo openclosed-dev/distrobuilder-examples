@@ -112,22 +112,10 @@ actions:
     update-locale LANG=en_US.UTF-8
 
 - trigger: post-unpack
-  action: |-
-    #!/bin/sh
-    set -eux
-
-    # Create the ubuntu user account
-    getent group sudo >/dev/null 2>&1 || groupadd --system sudo
-    useradd --create-home -s /bin/bash -G sudo -U ubuntu
-
-- trigger: post-unpack
   # Adds a user
   action: |-
     #!/bin/sh
     set -eux
-
-    # Create the first user account
-    useradd --create-home -s /bin/bash -U user1
 
     mkdir -p /home/user1/Desktop
     chown user1:user1 /home/user1/Desktop

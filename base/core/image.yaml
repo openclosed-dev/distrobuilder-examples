@@ -37,6 +37,15 @@ files:
   source: ./files/etc/cloud/cloud.cfg.d/95_datasource.cfg
 
 actions:
+# Adds an initial user
+- trigger: post-packages
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Create the first user account
+    useradd --create-home -s /bin/bash -U user1
+
 - trigger: post-packages
   action: |-
     #!/bin/sh

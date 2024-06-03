@@ -104,25 +104,6 @@ actions:
     locale-gen en_US.UTF-8
     update-locale LANG=en_US.UTF-8
 
-# Adds ubuntu user
-- trigger: post-packages
-  action: |-
-    #!/bin/sh
-    set -eux
-
-    # Create the ubuntu user account
-    getent group sudo >/dev/null 2>&1 || groupadd --system sudo
-    useradd --create-home -s /bin/bash -G sudo -U ubuntu
-
-# Adds a user
-- trigger: post-packages
-  action: |-
-    #!/bin/sh
-    set -eux
-
-    # Create the first user account
-    useradd --create-home -s /bin/bash -U user1
-
 - trigger: post-packages
   action: |-
     #!/bin/sh
