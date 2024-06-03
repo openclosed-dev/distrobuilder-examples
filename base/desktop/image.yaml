@@ -30,11 +30,6 @@ packages:
     action: install
     flags: [--no-install-recommends]
 
-  - packages:
-    - cloud-init
-    action: install
-    flags: [--no-install-recommends]
-
 files:
 # Stops offering to upgrade
 - path: /etc/update-manager/release-upgrades
@@ -53,10 +48,6 @@ files:
   generator: copy
   source: ./files/etc/polkit-1/localauthority/50-local.d
 
-- path: /etc/cloud/cloud.cfg.d/95_datasource.cfg
-  generator: copy
-  source: ./files/etc/cloud/cloud.cfg.d/95_datasource.cfg
-
 actions:
 # Fix xrdp
 - trigger: post-packages
@@ -66,11 +57,3 @@ actions:
 
     sed -i -e 's/startwm/startubuntu/g' /etc/xrdp/sesman.ini
     sed -i -e 's/FuseMountName=thinclient_drives/FuseMountName=shared-drives/g' /etc/xrdp/sesman.ini
-
-- trigger: post-packages
-  action: |-
-    #!/bin/sh
-    set -eux
-
-    # Fixes a problem that prevents cloud-init.service from being started.
-    sed '/^After=systemd-networkd-wait-online.service/d' /lib/systemd/system/cloud-init.service > /etc/systemd/system/cloud-init.service
