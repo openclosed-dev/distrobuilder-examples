@@ -91,22 +91,22 @@ files:
 
 - path: /home/user1/
   generator: copy
-  uid: 1001
-  gid: 1001
-  source: ./downloads/ms-ceintl.vscode-language-pack-ja.vsix
+  uid: 1000
+  gid: 1000
+  source: ./.downloads/ms-ceintl.vscode-language-pack-ja.vsix
 
 - path: /home/user1/.vscode/
   generator: copy
   mode: 644
-  uid: 1001
-  gid: 1001
+  uid: 1000
+  gid: 1000
   source: ./files/home/user1/.vscode/argv.json
 
 - path: /home/user1/.config/Code/
   generator: copy
   mode: 644
-  uid: 1001
-  gid: 1001
+  uid: 1000
+  gid: 1000
   source: ./files/home/user1/.config/Code/languagepacks.json
 
 actions:
@@ -118,26 +118,6 @@ actions:
 
     locale-gen en_US.UTF-8
     update-locale LANG=en_US.UTF-8
-
-# Adds ubuntu user
-- trigger: post-packages
-  action: |-
-    #!/bin/sh
-    set -eux
-
-    # Create the ubuntu user account
-    getent group sudo >/dev/null 2>&1 || groupadd --system sudo
-    useradd --create-home -s /bin/bash -G sudo -U ubuntu
-
-# Adds a user
-- trigger: post-packages
-  action: |-
-    #!/bin/sh
-    set -eux
-
-    # Create the first user account
-    useradd -p '$6$EioZtEpQ//S3Fvyg$FROs9q9mkrzQAg43olkR.KXVfFeEtzpSl3W/wrE.0tL.hxKHc2TXfqq/YtsN1Z2hNKZ86T5gXaxX51eXJnQlS.' \
-      --create-home -s /bin/bash -U user1
 
 - trigger: post-packages
   action: |-

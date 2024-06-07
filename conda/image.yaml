@@ -41,17 +41,17 @@ files:
 
 - path: /home/user1/
   generator: copy
-  source: ./downloads/miniconda.sh
+  source: ./.downloads/miniconda.sh
   mode: 744
-  uid: 1001
-  gid: 1001
+  uid: 1000
+  gid: 1000
 
 - path: /home/user1/install-conda.sh
   generator: copy
   source: ./files/home/user1/install-conda.sh
   mode: 744
-  uid: 1001
-  gid: 1001
+  uid: 1000
+  gid: 1000
 
 # Files for cloud-init
 - name: meta-data
