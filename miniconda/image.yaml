@@ -39,20 +39,6 @@ files:
 - path: /var/lib/dbus/machine-id
   generator: remove
 
-- path: /home/user1/
-  generator: copy
-  source: ./.downloads/miniconda.sh
-  mode: 744
-  uid: 1000
-  gid: 1000
-
-- path: /home/user1/install-conda.sh
-  generator: copy
-  source: ./files/home/user1/install-conda.sh
-  mode: 744
-  uid: 1000
-  gid: 1000
-
 # Files for cloud-init
 - name: meta-data
   generator: cloud-init
@@ -99,12 +85,3 @@ actions:
 
     # Cleanup temporary shadow paths
     rm /etc/*-
-
-- trigger: post-files
-  action: |-
-    #!/bin/sh
-    set -eux
-
-    sudo -u user1 -i /home/user1/install-conda.sh
-    rm /home/user1/miniconda.sh
-    rm /home/user1/install-conda.sh

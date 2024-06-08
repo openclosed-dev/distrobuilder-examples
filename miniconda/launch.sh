@@ -1,6 +1,6 @@
 #!/bin/bash
 
-imageAlias=conda
+imageAlias=miniconda
 containerName=test
 
 lxc list --format csv -c n name=$containerName | xargs -I {} lxc delete -f {}

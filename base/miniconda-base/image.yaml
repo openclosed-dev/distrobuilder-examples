@@ -1,0 +1,41 @@
+image:
+  distribution: ubuntu
+  release: focal
+
+source:
+  downloader: rootfs-http
+
+targets: {}
+
+mappings:
+  architecture_map: debian
+
+packages:
+  manager: apt
+  update: false
+  cleanup: false
+
+files:
+- path: /home/user1/
+  generator: copy
+  source: ./.downloads/miniconda.sh
+  mode: 744
+  uid: 1000
+  gid: 1000
+
+- path: /home/user1/install-conda.sh
+  generator: copy
+  source: ./files/home/user1/install-conda.sh
+  mode: 744
+  uid: 1000
+  gid: 1000
+
+actions:
+- trigger: post-files
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    sudo -u user1 bash /home/user1/install-conda.sh
+    rm /home/user1/miniconda.sh
+    rm /home/user1/install-conda.sh
