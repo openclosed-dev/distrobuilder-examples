@@ -14,7 +14,7 @@ base/desktop-ja: base/desktop
 base/miniconda-base: base/desktop
 
 core: base/core
-miniconda: base/miniconda-base
+miniconda: base/miniconda-packages
 minimal: base/desktop
 minimal-ja: base/desktop-ja
 simple: base/desktop-apps

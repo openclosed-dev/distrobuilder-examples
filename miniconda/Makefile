@@ -1,6 +1,6 @@
 makefile_dir := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 base_dir := $(shell dirname $(makefile_dir))
-base_image := $(base_dir)/base/miniconda-base/rootfs.squashfs
+base_image := $(base_dir)/base/miniconda-packages/rootfs.squashfs
 
 .PHONY: all clean
 
