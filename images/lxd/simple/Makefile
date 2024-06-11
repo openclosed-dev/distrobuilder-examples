@@ -1,6 +1,7 @@
 makefile_dir := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-base_dir := $(shell dirname $(makefile_dir))
-base_image := $(base_dir)/base/desktop-apps/rootfs.squashfs
+parent_dir := $(shell dirname $(makefile_dir))
+base_dir := $(shell dirname $(parent_dir))/base
+base_image := $(base_dir)/desktop-apps/rootfs.squashfs
 files=$(shell find files -type f | sed -e 's/ /\\ /g')
 
 .PHONY: all clean

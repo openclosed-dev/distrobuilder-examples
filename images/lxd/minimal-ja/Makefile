@@ -1,6 +1,7 @@
 makefile_dir := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-base_dir := $(shell dirname $(makefile_dir))
-base_image := $(base_dir)/base/desktop-ja/rootfs.squashfs
+parent_dir := $(shell dirname $(makefile_dir))
+base_dir := $(shell dirname $(parent_dir))/base
+base_image := $(base_dir)/desktop-ja/rootfs.squashfs
 
 .PHONY: all clean
 
