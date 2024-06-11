@@ -1,6 +1,7 @@
 makefile_dir := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 base_dir := $(shell dirname $(makefile_dir))
 base_image := $(base_dir)/miniconda-base/rootfs.squashfs
+files := $(shell find files -type f)
 
 .PHONY: all clean
 
@@ -10,7 +11,7 @@ clean:
 	sudo rm -rf rootfs
 	sudo rm -f rootfs.squashfs
 
-rootfs.squashfs: image.yaml $(base_image)
+rootfs.squashfs: image.yaml $(base_image) $(file)
 	sudo rm -rf rootfs
 	sudo rm -f rootfs.squashfs
 	sudo distrobuilder build-dir $< rootfs -o source.url=file://$(base_image) --with-post-files
