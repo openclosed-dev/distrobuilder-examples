@@ -1,7 +1,10 @@
 .cache/
 .downloads/
 rootfs/
+*.csr
+*.crt
 *.db
+*.key
 *.squashfs
 *.tar
 *.tar.gz

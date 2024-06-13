@@ -13,12 +13,18 @@ Distrobuilder template examples for generating LXD container images.
 7. dconf
 8. apt-cacher-ng
 9. protobuf-compiler
+10. squid-openssl
 
 Required packaged can be installed using `apt install` and `snap install`.
 ```
 sudo snap install lxd
 sudo snap install distrobuilder --classic
-sudo apt install debootstrap make squashfs-tools dconf-cli apt-cacher-ng protobuf-compiler
+sudo apt install debootstrap make squashfs-tools dconf-cli apt-cacher-ng protobuf-compiler squid-openssl
+```
+
+Squid can be configured by running a sciprt in this directory.
+```
+./configure-squid.sh
 ```
 
 The LXD service must be configured properly first.

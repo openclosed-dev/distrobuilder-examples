@@ -16,6 +16,17 @@ packages:
   cleanup: false
 
 files:
+- path: /etc/ssl/certs/squid-ca.crt
+  generator: copy
+  source: /etc/squid/ssl/squid-ca.crt
+
+- path: /home/user1/.condarc
+  generator: copy
+  source: ./files/home/user1/.condarc
+  mode: 644
+  uid: 1000
+  gid: 1000
+
 - path: /home/user1/install-packages.sh
   generator: copy
   source: ./files/home/user1/install-packages.sh
@@ -30,4 +41,6 @@ actions:
     set -eux
 
     sudo -u user1 bash -i /home/user1/install-packages.sh
+    rm /etc/ssl/certs/squid-ca.crt
+    rm /home/user1/.condarc
     rm /home/user1/install-packages.sh

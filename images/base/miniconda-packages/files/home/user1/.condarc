@@ -1,0 +1,4 @@
+proxy_servers:
+    http: http://127.0.0.1:3128
+    https: http://127.0.0.1:3128
+ssl_verify: /etc/ssl/certs/squid-ca.crt
