@@ -15,7 +15,7 @@ Distrobuilder template examples for generating LXD container images.
 9. protobuf-compiler
 10. squid-openssl
 
-Required packaged can be installed using `apt install` and `snap install`.
+Required packages can be installed using `apt install` and `snap install`.
 ```
 sudo snap install lxd
 sudo snap install distrobuilder --classic
