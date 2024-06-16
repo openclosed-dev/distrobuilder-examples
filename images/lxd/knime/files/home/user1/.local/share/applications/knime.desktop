@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=KNIME
+GenericName=KNIME Analytics Platform
+Comment=KNIME Analytics Platform
+Exec=/home/user1/local/knime/knime
+Icon=/home/user1/local/knime/icon.xpm
+Terminal=false
+Categories=Development;IDE;
+StartupNotify=true

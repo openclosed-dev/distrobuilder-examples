@@ -1,0 +1,140 @@
+image:
+  name: knime
+  distribution: ubuntu
+  release: focal
+  description: |-
+    Ubuntu 20.04 Desktop with Applications
+  architecture: x86_64
+
+source:
+  downloader: rootfs-http
+
+mappings:
+  architecture_map: debian
+
+packages:
+  manager: apt
+  update: false
+  cleanup: false
+
+files:
+- path: /etc/apt/apt.conf.d/01proxy
+  generator: remove
+
+- path: /etc/hostname
+  generator: hostname
+
+- path: /etc/hosts
+  generator: hosts
+
+- path: /etc/resolvconf/resolv.conf.d/original
+  generator: remove
+
+- path: /etc/resolvconf/resolv.conf.d/tail
+  generator: remove
+
+- path: /etc/machine-id
+  generator: dump
+
+- path: /var/lib/dbus/machine-id
+  generator: remove
+
+# Files for cloud-init
+- name: meta-data
+  generator: cloud-init
+
+- name: network-config
+  generator: cloud-init
+
+- name: user-data
+  generator: cloud-init
+
+- name: vendor-data
+  generator: cloud-init
+
+- path: /home/user1/
+  generator: copy
+  source: .downloads/knime_5.2.5.linux.gtk.x86_64.tar.gz
+  uid: 1000
+  gid: 1000
+
+- path: /home/user1/
+  generator: copy
+  source: files/home/user1/install-knime.sh
+  mode: 744
+  uid: 1000
+  gid: 1000
+
+- path: /home/user1/.config/
+  generator: copy
+  source: files/home/user1/.config/mimeapps.list
+  mode: 664
+  uid: 1000
+  gid: 1000
+
+- path: /home/user1/.local/share/applications/
+  generator: copy
+  source: files/home/user1/.local/share/applications/
+  uid: 1000
+  gid: 1000
+
+# Adds custom MIME types for KNIME
+- path: /home/user1/.local/share/mime/packages/
+  generator: copy
+  source: files/home/user1/.local/share/mime/packages/
+  mode: 644
+
+actions:
+# Locale
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    locale-gen en_US.UTF-8
+    update-locale LANG=en_US.UTF-8
+
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Enable systemd-networkd
+    systemctl enable systemd-networkd
+
+    # Disable UA attach
+    systemctl mask ua-auto-attach
+
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    # Cleanup underlying /run
+    mount -o bind / /mnt
+    rm -rf /mnt/run/*
+    umount /mnt
+
+    # Cleanup temporary shadow paths
+    rm /etc/*-
+
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    mkdir -p /home/user1/.config
+    mkdir -p /home/user1/.local/bin
+    mkdir -p /home/user1/.local/share/applications
+    mkdir -p /home/user1/.local/share/mime/packages
+    
+    chown -R user1:user1 /home/user1/.config
+    chown -R user1:user1 /home/user1/.local
+
+- trigger: post-files
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    sudo -u user1 bash /home/user1/install-knime.sh
+    rm /home/user1/install-knime.sh
