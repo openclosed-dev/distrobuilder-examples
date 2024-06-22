@@ -13,7 +13,8 @@ sudo cp config/squid/squid-ca.{key,crt} /etc/squid/ssl/
 sudo cp /etc/squid/ssl/squid-ca.crt /usr/local/share/ca-certificates/
 sudo update-ca-certificates
 
-sudo -u proxy mkdir -p /var/cache/squid
+sudo mkdir -p /var/cache/squid
+sudo chown proxy:proxy /var/cache/squid
 
 sudo rm -rf /var/cache/ssl_db
 sudo /usr/lib/squid/security_file_certgen -c -s /var/cache/ssl_db -M 20MB
