@@ -283,7 +283,11 @@ targets: {}
 mappings:
   architecture_map: debian
 
-files: []
+files:
+- path: /etc/hostname
+  generator: dump
+  content: |
+    distrobuilder
 
 packages:
   manager: apt
@@ -301,6 +305,13 @@ packages:
     - i386
 
 actions:
+- trigger: post-unpack
+  action: |-
+    #!/bin/sh
+    set -eux
+
+    echo '127.0.0.1	distrobuilder' >> /etc/hosts
+
 - trigger: post-unpack
   action: |-
     #!/bin/sh
