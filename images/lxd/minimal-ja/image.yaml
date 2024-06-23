@@ -94,17 +94,6 @@ actions:
     #!/bin/sh
     set -eux
 
-    # Enable systemd-networkd
-    systemctl enable systemd-networkd
-
-    # Disable UA attach
-    systemctl mask ua-auto-attach
-
-- trigger: post-unpack
-  action: |-
-    #!/bin/sh
-    set -eux
-
     # Cleanup underlying /run
     mount -o bind / /mnt
     rm -rf /mnt/run/*
