@@ -20,6 +20,7 @@ devices:
     network: lxdbr0
     type: nic
   rdp:
+    # for accepting RDP connections
     bind: host
     connect: tcp:0.0.0.0:3389
     listen: tcp:0.0.0.0:3389

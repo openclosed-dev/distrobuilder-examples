@@ -22,7 +22,7 @@ sudo snap install distrobuilder --classic
 sudo apt install debootstrap make squashfs-tools dconf-cli apt-cacher-ng protobuf-compiler squid-openssl
 ```
 
-Squid can be configured by running a sciprt in this directory.
+Squid can be configured by running a script in this directory.
 ```
 ./configure-squid.sh
 ```
@@ -49,12 +49,12 @@ lxc profile edit develop < develop-profile.yaml
 
 ### Base images
 
-| Image name | Descrption | Parent image |
+| Image name | Description | Parent image |
 | --- | --- | --- |
 | base/bootstrap | Minimal image to boot | - |
 | base/core | Command line tools | base/bootstrap |
 | base/desktop | Minimal desktop with RDP | base/core |
-| base/desktop-apps | Desktop with addtional applications | base/desktop |
+| base/desktop-apps | Desktop with additional applications | base/desktop |
 
 ## Building the images
 
@@ -67,7 +67,8 @@ make
 
 The following command imports the image built in the `simple` directory.
 ```
-lxc image import simple/incus.tar simple/rootfs.squashfs --alias simple
+cd images/lxd/simple
+lxc image import incus.tar rootfs.squashfs --alias simple
 
 # lists images
 lxc image list
@@ -75,15 +76,10 @@ lxc image list
 
 A container named `test` can be launched using the imported image.
 ```
-lxc launch simple test
+lxc launch simple test -p develop
 
 # lists containers
 lxc list
-```
-
-For RDP-enabled images, a proxy device needs to be attached to the container for connceting from your Windows host via RDP.
-```
-lxc config device add test rdp proxy listen=tcp:0.0.0.0:3389 connect=tcp:0.0.0.0:3389 bind=host
 ```
 
 The login credentials provided by the examples are `user1`/`secret`, which must be changed in production environment.
