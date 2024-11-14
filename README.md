@@ -4,7 +4,7 @@ Distrobuilder template examples for generating LXD container images.
 
 ## Prerequisites
 
-1. Ubuntu 22.04 LTS (fresh instance is recommended)
+1. Ubuntu 24.04 LTS (fresh instance is recommended)
 2. LXD
 3. [LXD image builder](https://github.com/canonical/lxd-imagebuilder)
 4. debootstrap
