@@ -1,3 +1,5 @@
+include common.mk
+
 base_images := base/bootstrap base/core base/desktop base/desktop-apps base/desktop-ja base/miniconda-base base/miniconda-packages
 derived_images := lxd/core lxd/miniconda lxd/minimal lxd/minimal-ja lxd/simple 
 images := $(base_images) $(derived_images)

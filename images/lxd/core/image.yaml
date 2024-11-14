@@ -65,7 +65,7 @@ files:
 
     source /etc/network/interfaces.d/*.cfg
 
-- path: /etc/sudoers.d/90-incus
+- path: /etc/sudoers.d/90-lxd
   generator: dump
   mode: 0440
   content: |-

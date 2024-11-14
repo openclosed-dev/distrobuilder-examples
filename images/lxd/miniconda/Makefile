@@ -1,3 +1,5 @@
+include ../../../common.mk
+
 makefile_dir := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 parent_dir := $(shell dirname $(makefile_dir))
 base_dir := $(shell dirname $(parent_dir))/base
@@ -5,11 +7,11 @@ base_image := $(base_dir)/miniconda-packages/rootfs.squashfs
 
 .PHONY: all clean
 
-all: incus.tar
+all: lxd.tar
 
 clean:
 	sudo rm -f *.tar *.squashfs 
 
-incus.tar: image.yaml $(base_image)
-	sudo rm -f incus.tar rootfs.squashfs
-	sudo distrobuilder build-lxd $< --compression=lz4 -o source.url=file://$(base_image)
+lxd.tar: image.yaml $(base_image)
+	sudo rm -f lxd.tar rootfs.squashfs
+	sudo $(IMAGE_BUILDER) build-lxd $< --compression=lz4 -o source.url=file://$(base_image)

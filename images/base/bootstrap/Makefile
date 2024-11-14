@@ -1,3 +1,5 @@
+include ../../../common.mk
+
 .PHONY: all clean
 
 all: rootfs.squashfs
@@ -9,5 +11,5 @@ clean:
 rootfs.squashfs: image.yaml
 	sudo rm -rf rootfs
 	sudo rm -f rootfs.squashfs
-	sudo distrobuilder build-dir $< rootfs
+	sudo $(IMAGE_BUILDER) build-dir $< rootfs
 	sudo mksquashfs rootfs $@ -comp lz4

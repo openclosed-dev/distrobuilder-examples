@@ -287,7 +287,7 @@ files:
 - path: /etc/hostname
   generator: dump
   content: |
-    distrobuilder
+    lxd-imagebuil
 
 packages:
   manager: apt
@@ -310,7 +310,7 @@ actions:
     #!/bin/sh
     set -eux
 
-    echo '127.0.0.1	distrobuilder' >> /etc/hosts
+    echo '127.0.0.1	lxd-imagebuil' >> /etc/hosts
 
 - trigger: post-unpack
   action: |-

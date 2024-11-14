@@ -1,3 +1,5 @@
+include ../../../common.mk
+
 makefile_dir := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 base_dir := $(shell dirname $(makefile_dir))
 base_image := $(base_dir)/desktop/rootfs.squashfs
@@ -19,5 +21,5 @@ clean:
 rootfs.squashfs: image.yaml $(base_image) $(downloads) $(files)
 	sudo rm -rf rootfs
 	sudo rm -f rootfs.squashfs
-	sudo distrobuilder build-dir $< rootfs -o source.url=file://$(base_image) --with-post-files
+	sudo $(IMAGE_BUILDER) build-dir $< rootfs -o source.url=file://$(base_image) --with-post-files
 	sudo mksquashfs rootfs $@ -comp lz4
